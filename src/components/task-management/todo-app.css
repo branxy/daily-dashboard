@@ -1,0 +1,306 @@
+:root {
+  --accent-color: rgb(205, 232, 255);
+}
+
+/* To DO APP */
+.to-do-app {
+  /* border: 1px solid; */
+  width: 100%;
+  /* min-width: 520px; */
+  /* max-width: 1000px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.to-do-app .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.to-do-app h2 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.to-do-app button {
+  border: none;
+  cursor: pointer;
+}
+
+.to-do-app button.primary {
+  border-radius: 20px;
+  padding: 8px 20px;
+  outline: none;
+  background-color: #ffffff;
+  flex: 1 0 0;
+}
+
+.to-do-app button.secondary {
+  border-radius: 20px;
+  padding: 4px 12px;
+  outline: none;
+  background-color: #ffffff;
+}
+
+button.primary:hover,
+button.secondary:hover {
+  background-color: var(--accent-color);
+}
+
+/* ADD TODO */
+.add-todo {
+  /* border: 1px solid; */
+  width: 100%;
+  background-color: rgb(244, 153, 137);
+  padding: 20px;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.add-todo input {
+  flex: 3 0 0;
+  max-width: 400px;
+  height: 36px;
+  padding: 4px 6px 2px 6px;
+  border: none;
+  border-radius: 8px;
+}
+
+.add-todo button {
+  max-width: 120px;
+}
+
+.sort-btns button {
+  margin: 0px 10px 20px 0px;
+}
+
+.tasks-list {
+  width: 100%;
+}
+
+.original {
+  width: 100%;
+  padding: 0px 24%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* TO DO ITEM */
+.list-item {
+  width: 100%;
+  min-width: 360px;
+  border-bottom: 1px solid;
+  padding: 10px 6px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.list-item:last-child {
+  border: none;
+}
+
+.list-item:hover {
+  outline: 2px solid var(--accent-color);
+  border: none;
+  border-radius: 4px;
+  /* cursor: pointer; */
+}
+
+.list-item input[type="checkbox"] {
+  min-width: 20px;
+  align-self: stretch;
+  /* height: 20px; */
+}
+
+.list-item .title-and-date {
+  flex: 20 0 0;
+  display: flex;
+}
+
+.list-item input[type="text"] {
+  width: 100%;
+  flex: 20 0 0;
+  padding: 2px 4px;
+  appearance: none;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+.list-item-title {
+  /* border: 2px solid; */
+  /* display: flex; */
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 20 0 0;
+  flex-wrap: wrap;
+  min-width: 140px;
+  max-width: max(80%, 400px);
+  cursor: pointer;
+}
+
+.list-item-title .task-title {
+  display: inline;
+}
+
+/* .list-item-title .expand-task {
+  padding: 2px 12px;
+  font-size: 16px;
+} */
+
+/* .list-item-title .expand-task span {
+  font-size: 16px;
+} */
+
+.list-item .due-date {
+  flex: 1 0 auto;
+  max-width: 148px;
+}
+
+.list-item > .status {
+  flex: 1 0 0;
+  /* border: 1px solid; */
+  min-width: 96px;
+  width: 100%;
+  position: relative;
+}
+
+.current {
+  /* border: 1px solid; */
+  padding: 5px 8px 6px 8px;
+  border-radius: 16px !important;
+  cursor: pointer;
+}
+
+.tasks-list .current:hover {
+  outline: 1px solid;
+}
+
+.tasks-list .current.done {
+  background-color: rgb(123, 255, 123);
+}
+
+.tasks-list .current.in-progress {
+  background-color: rgba(255, 192, 75, 0.637);
+}
+
+.tasks-list .current.not-started {
+  background-color: rgb(255, 135, 131);
+}
+
+.status .options {
+  border: 1px solid;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 6px;
+  position: absolute;
+  top: 0px;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.options button {
+  background-color: transparent;
+  border-radius: 6px;
+  width: 100%;
+  padding: 5px 8px 6px 8px;
+}
+
+.options button:hover {
+  background-color: var(--accent-color);
+}
+
+.list-item .date-created {
+  display: none;
+  /* border: 1px solid; */
+  width: 100px;
+  flex-wrap: wrap;
+}
+
+.list-item-title:first-child {
+  /* border: 3px solid red; */
+  padding: 10px;
+  height: 100%;
+  text-align: start;
+}
+
+/* MODAL */
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 80%;
+  height: 80%;
+  background-color: rgb(255, 244, 244);
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-top: 110px;
+  padding: 70px 20px 20px 20px;
+  border: 2px solid rgb(114, 114, 114);
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  padding: 20px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.modal > .title,
+.body {
+  outline: none;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  text-align: left;
+}
+.modal .body {
+  border: 1px solid;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-wrap: normal;
+  /* flex-wrap: wrap; */
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start; */
+}
+
+@media screen and (max-width: 1024px) {
+  .original,
+  .tasks-list {
+    padding: 0px 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .list-item-title {
+    padding: 0px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .title-and-date {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
