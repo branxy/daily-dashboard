@@ -1,4 +1,4 @@
-## React dashboard w/ task-manager and weather widget
+## React dashboard w/ task-manager and weather widget in Typescript
 
 Build: Vite;
 
