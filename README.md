@@ -10,8 +10,4 @@ Getting weather: Fetch API
 
 Hooks used:
 
-useContext;
-useReducer;
-useEffect;
-useRef;
-useState
+useContext, useReducer, useEffect, useRef, useState
