@@ -15,7 +15,7 @@ async function fetchData() {
   }
 }
 
-export async function getWeatherData() {
+export function getWeatherData() {
   if (!weatherData) {
     weatherData = fetchData();
   }
