@@ -136,7 +136,11 @@ function TaskDueDate({
       .toLocaleString(undefined, options)
       .split(",")
       .join("");
-    const time = `${dueDate.getHours()}:${dueDate.getMinutes()}`;
+    const minutes =
+      dueDate.getMinutes() < 10
+        ? `0${dueDate.getMinutes()}`
+        : dueDate.getMinutes();
+    const time = `${dueDate.getHours()}:${minutes}`;
     dateContent = (
       <button
         className="secondary"
