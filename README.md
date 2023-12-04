@@ -1,4 +1,4 @@
-## React dashboard w/ task-manager and weather widget
+## React dashboard w/ task-manager and weather widget in Typescript
 
 Build: Vite;
 
@@ -10,8 +10,4 @@ Getting weather: Fetch API
 
 Hooks used:
 
-useContext;
-useReducer;
-useEffect;
-useRef;
-useState
+useContext, useReducer, useEffect, useRef, useState
