@@ -1,10 +1,29 @@
 import { useReducer, useEffect } from "react";
-import { Tasks } from "../types";
+import { TaskItem, Tasks } from "../types";
 import tasksReducer from "./tasksReducer";
 import { tasksContext, dispatchTasksContext } from "../constants";
 
+const options = {
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+} as const;
+
+const initialTasks: TaskItem[] = [
+  {
+    id: 1,
+    title: "Example task",
+    text: "",
+    dueDate: new Date(),
+    status: "Not started",
+    dateCreated: new Date().toLocaleString(undefined, options),
+  },
+];
+
 export function TasksProvider({ ...children }) {
-  const [tasks, dispatch] = useReducer(tasksReducer, []);
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks, undefined);
 
   useEffect(() => {
     const savedTasks: Tasks = JSON.parse(
