@@ -40,14 +40,16 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
   }
 
   return (
-    <div className="list-item">
-      <TaskCheckboxField task={task} />
-      <div className="title-and-date flex">
+    <div className="list-item flex">
+      <div className="checkbox-and-title flex">
+        <TaskCheckboxField task={task} />
         <TaskTitleField
           task={task}
           isEditing={isEditing}
           onSelectTask={onSelectTask}
         />
+      </div>
+      <div className="actions flex">
         <TaskDueDate
           dueDate={task.dueDate}
           isEditingDate={isEditingDate}
@@ -55,11 +57,13 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
           onInput={handleUpdateDate}
           source={source}
         />
+          <StatusField task={task} />
+          <DateCreatedField date={task.dateCreated} />
+        <div className="edit-delete flex">
+          <EditSaveBtn isEditing={isEditing} onIsEditing={toggleEditing} />
+          <DeleteTaskBtn task={task} />
+        </div>
       </div>
-      <StatusField task={task} />
-      <DateCreatedField date={task.dateCreated} />
-      <EditSaveBtn isEditing={isEditing} onIsEditing={toggleEditing} />
-      <DeleteTaskBtn task={task} />
     </div>
   );
 }

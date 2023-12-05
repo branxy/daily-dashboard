@@ -24,7 +24,6 @@ function TaskApp({ source }: TaskAppProps) {
           <h2>To-do list</h2>
           <TasksProvider>
             <AddTask />
-            {/* <SortFilterPanel /> */}
             <TasksList source="original" />
           </TasksProvider>
         </div>

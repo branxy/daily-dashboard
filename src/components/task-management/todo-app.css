@@ -89,149 +89,6 @@ button.secondary:hover {
   align-items: center;
 }
 
-/* TO DO ITEM */
-.list-item {
-  width: 100%;
-  min-width: 360px;
-  border-bottom: 1px solid;
-  padding: 10px 6px;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  gap: 8px;
-  box-sizing: border-box;
-}
-
-.list-item:last-child {
-  border: none;
-}
-
-.list-item:hover {
-  outline: 2px solid var(--accent-color);
-  border: none;
-  border-radius: 4px;
-  /* cursor: pointer; */
-}
-
-.list-item input[type="checkbox"] {
-  min-width: 20px;
-  align-self: stretch;
-  /* height: 20px; */
-}
-
-.list-item .title-and-date {
-  flex: 20 0 0;
-  display: flex;
-}
-
-.list-item input[type="text"] {
-  width: 100%;
-  flex: 20 0 0;
-  padding: 2px 4px;
-  appearance: none;
-  outline: none;
-  border: none;
-  border-bottom: 1px solid;
-}
-
-.list-item-title {
-  /* border: 2px solid; */
-  /* display: flex; */
-  width: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 20 0 0;
-  flex-wrap: wrap;
-  min-width: 140px;
-  max-width: max(80%, 400px);
-  cursor: pointer;
-}
-
-.list-item-title .task-title {
-  display: inline;
-}
-
-/* .list-item-title .expand-task {
-  padding: 2px 12px;
-  font-size: 16px;
-} */
-
-/* .list-item-title .expand-task span {
-  font-size: 16px;
-} */
-
-.list-item .due-date {
-  flex: 1 0 auto;
-  max-width: 148px;
-}
-
-.list-item > .status {
-  flex: 1 0 0;
-  /* border: 1px solid; */
-  min-width: 96px;
-  width: 100%;
-  position: relative;
-}
-
-.current {
-  /* border: 1px solid; */
-  padding: 5px 8px 6px 8px;
-  border-radius: 16px !important;
-  cursor: pointer;
-}
-
-.tasks-list .current:hover {
-  outline: 1px solid;
-}
-
-.tasks-list .current.done {
-  background-color: rgb(123, 255, 123);
-}
-
-.tasks-list .current.in-progress {
-  background-color: rgba(255, 192, 75, 0.637);
-}
-
-.tasks-list .current.not-started {
-  background-color: rgb(255, 135, 131);
-}
-
-.status .options {
-  border: 1px solid;
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 6px;
-  position: absolute;
-  top: 0px;
-  z-index: 20;
-  cursor: pointer;
-}
-
-.options button {
-  background-color: transparent;
-  border-radius: 6px;
-  width: 100%;
-  padding: 5px 8px 6px 8px;
-}
-
-.options button:hover {
-  background-color: var(--accent-color);
-}
-
-.list-item .date-created {
-  display: none;
-  /* border: 1px solid; */
-  width: 100px;
-  flex-wrap: wrap;
-}
-
-.list-item-title:first-child {
-  /* border: 3px solid red; */
-  padding: 10px;
-  height: 100%;
-  text-align: start;
-}
-
 /* MODAL */
 .modal {
   position: absolute;
@@ -299,8 +156,16 @@ button.secondary:hover {
 }
 
 @media screen and (max-width: 576px) {
-  .title-and-date {
+  .tasks-list {
+    padding: 0;
+  }
+  .list-item .title-and-date {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .list-item-title {
+    padding: 0px 10px;
+  }
+  .due-date {
   }
 }

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Average+Sans&family=Rufina:wght@400;700&display=swap");
 @import url("./components/task-management/todo-app.css");
+@import url("./components/task-management/task-item.css");
 
 html {
   box-sizing: border-box;
@@ -364,6 +365,15 @@ a {
 }
 
 @media screen and (max-width: 576px) {
+  .tasks,
+  .weather {
+    border: none;
+  }
+
+  .dummy-div {
+    padding: 0;
+  }
+  
   .weather {
     min-width: 320px;
   }
