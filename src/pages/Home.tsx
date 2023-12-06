@@ -4,19 +4,19 @@ import WeatherApp from "../components/weather/WeatherApp";
 
 function Home() {
   return (
-    <div className="home-page flex-col">
+    <div className="home-page">
       <div className="dash-items">
         <div className="tasks-and-weather">
           <div className="tasks">
-            <div className="dummy-div flex-col">
-              <div className="title-and-info flex">
+            <div className="dummy-div">
+              <div className="title-and-info">
                 <h2>Agenda</h2>
                 <Tooltip text={"Today's tasks, filtered by date"} />
               </div>
               <TaskApp source={"dashboard"} />
             </div>
           </div>
-          <div className="weather flex-col">
+          <div className="weather">
             <WeatherApp />
           </div>
         </div>

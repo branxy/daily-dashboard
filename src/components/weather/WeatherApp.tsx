@@ -76,21 +76,21 @@ export default function WeatherApp() {
       <>
         {details && (
           <>
-            <div className="heading-and-info flex">
-              <div className="title-and-city flex">
-                <h2>Weather</h2>
-                <span className="title">in {details.city_name},</span>
-              </div>
-              <div className="clock-and-tooltip flex">
+            <div className="heading-and-info">
+              <div className="heading-and-clock">
+                <div className="title-and-city">
+                  <h2>Weather</h2>
+                  <span className="title">in {details.city_name}</span>
+                </div>
                 <Clock />
-                <Tooltip
-                  text={
-                    "Dynamic weather report based on Weatherbit data and Fetch API"
-                  }
-                />
               </div>
+              <Tooltip
+                text={
+                  "Dynamic weather report based on Weatherbit data and Fetch API"
+                }
+              />
             </div>
-            <div className="stats flex-col">
+            <div className="stats">
               <div className="main-stats">
                 <div className="temp-and-icon">
                   <span className="temperature">
@@ -103,7 +103,7 @@ export default function WeatherApp() {
                     alt=""
                   />
                 </div>
-                <div className="text flex-col">
+                <div className="text">
                   <span>{details.weather.description}</span>
                   <div className="feels-like">
                     <span className="text">Feels like </span>
@@ -148,21 +148,19 @@ export default function WeatherApp() {
   }
   return (
     <>
-      <div className="heading-and-info flex">
-        <div className="title-and-city flex">
-          <h2>Weather</h2>
-          <span className="title">in Saint-Petersburg</span>
-        </div>
-        <div className="clock-and-tooltip flex">
+      <div className="heading-and-info">
+        <div className="heading-and-clock">
+          <div className="title-and-city">
+            <h2>Weather</h2>
+            <span className="title">in Saint-Petersburg</span>
+          </div>
           <Clock />
-          <Tooltip
-            text={
-              "Dynamic weather report based on Weatherbit data and Fetch API"
-            }
-          />
         </div>
+        <Tooltip
+          text={"Dynamic weather report based on Weatherbit data and Fetch API"}
+        />
       </div>
-      <div>Loading...</div>
+      <div className="loading">Loading...</div>
     </>
   );
 }

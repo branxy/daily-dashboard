@@ -16,7 +16,7 @@ export default function TasksList({ source = "original" }: TasksListProps) {
         return task.dueDate.toDateString() === new Date().toDateString();
       });
       return (
-        <div className="tasks-list flex-col">
+        <div className="tasks-list">
           <div className={source}>
             {todayTasks.map((task: TaskItem) => {
               return (
@@ -35,7 +35,7 @@ export default function TasksList({ source = "original" }: TasksListProps) {
     default: {
       return (
         <>
-          <div className="tasks-list flex-col">
+          <div className="tasks-list">
             <div className={source}>
               {tasks.map((task) => {
                 return (

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Average+Sans&family=Rufina:wght@400;700&display=swap");
+@import url("./components/weather/weather.css");
 @import url("./components/task-management/todo-app.css");
 @import url("./components/task-management/task-item.css");
 
@@ -79,17 +80,6 @@ a {
   position: relative;
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .navbar {
   display: flex;
   flex-direction: column;
@@ -125,6 +115,8 @@ a {
 }
 
 .home-page {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 40px 60px;
 }
@@ -156,13 +148,18 @@ a {
 }
 .tasks .dummy-div {
   /* border: 1px solid; */
+  display: flex;
+  flex-direction: column;
   max-height: 500px;
   padding: 0px 10px;
   overflow-y: auto;
   position: relative;
 }
 
-.title-and-info {
+.dummy-div > .title-and-info {
+  display: flex;
+  /* align-items: center; */
+
   width: 100%;
   justify-content: space-between;
   position: relative;
@@ -177,8 +174,29 @@ a {
   top: 0px;
 }
 
+.tasks-list {
+  margin-top: 4px;
+  padding-bottom: 4px;
+}
+
+.tasks-list .dashboard {
+  width: 100%;
+}
+
+.home-page .tasks-list button {
+  border: none;
+  padding: 8px 10px;
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.home-page .tasks-list button:hover {
+  background-color: rgb(241, 241, 241);
+}
+
 /* TOOLTIP */
 .info {
+  display: flex;
   position: relative;
 }
 
@@ -202,131 +220,6 @@ a {
 
 .info:hover .text {
   display: block;
-}
-
-.tasks-list {
-  margin-top: 4px;
-  padding-bottom: 4px;
-}
-
-.tasks-list .dashboard {
-  width: 100%;
-}
-
-.home-page .tasks-list button {
-  border: none;
-  padding: 8px 10px;
-  background-color: transparent;
-  border-radius: 8px;
-}
-
-.home-page .tasks-list button:hover {
-  background-color: rgb(241, 241, 241);
-}
-
-.weather {
-  border: 1px solid;
-  border-radius: var(--border-rad);
-  padding-top: 8px;
-  min-width: 360px;
-  max-height: 220px;
-}
-
-.weather .heading-and-info {
-  width: 100%;
-  padding: 0px 10px;
-  gap: 6px;
-  position: relative;
-}
-
-.weather .title-and-city {
-  gap: 6px;
-}
-
-.weather .clock-and-tooltip {
-  flex-grow: 1;
-  justify-content: space-between;
-}
-
-.weather .stats {
-  width: 100%;
-  background: #55a5ff;
-  align-items: flex-start;
-  border-radius: 0px 0px var(--border-rad) var(--border-rad);
-  gap: 10px;
-  padding: 8px 12px 20px 12px;
-  flex-grow: 2;
-}
-
-.weather .main-stats {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-}
-
-.main-stats .temp-and-icon {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.temp-and-icon .temperature {
-  color: var(--font-color-white);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.temp-and-icon .icon {
-  width: 40px;
-  height: 40px;
-}
-
-.main-stats .text {
-  color: var(--font-color-white);
-  align-items: flex-start;
-  gap: 6px;
-  flex: 1 0 0;
-}
-
-.text span {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.text .feels-like {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 4px;
-}
-
-.feels-like .text {
-  color: var(--gray-text);
-  font-size: 14px;
-}
-
-.feels-like .temp {
-  font-weight: 600;
-}
-
-.weather .secondary-stats {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  align-self: stretch;
-}
-
-.secondary-stats .stat {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.stat span {
-  color: var(--font-color-white);
-  font-size: 12px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -368,24 +261,11 @@ a {
   .home-page {
     padding: 0px;
   }
-  .tasks,
-  .weather {
+  .tasks {
     border: none;
     height: 100%;
   }
   .dummy-div {
     padding: 0;
-  }
-
-  .weather {
-    min-width: 320px;
-  }
-  .weather .title-and-city {
-    flex-direction: column;
-    gap: 0px;
-    align-items: flex-start;
-  }
-  .weather .clock-and-tooltip {
-    height: 100%;
   }
 }

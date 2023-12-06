@@ -1,5 +1,6 @@
 /* TO DO ITEM */
 .list-item {
+  display: flex;
   width: 100%;
   min-width: 360px;
   border-bottom: 1px solid;
@@ -16,7 +17,7 @@
 }
 
 .list-item:first-child {
-  padding: 0px 6px 10px 6px;
+  padding: 4px 6px 4px 6px;
 }
 
 .list-item:last-child {
@@ -24,7 +25,8 @@
 }
 
 .checkbox-and-title {
-  align-items: flex-start;
+  display: flex;
+  align-items: center;
   flex: 20 0 0;
   gap: 6px;
 }
@@ -33,7 +35,6 @@
 .list-item input[type="checkbox"] {
   min-width: 18px;
   min-height: 18px;
-  align-self: baseline;
   cursor: pointer;
 }
 
@@ -61,21 +62,24 @@
   border-bottom: 1px solid;
 }
 
-.list-item .due-date {
-  flex: 1 0 auto;
-  max-width: 148px;
+.actions {
+  display: flex;
+  align-items: center;
 }
 
-.list-item > .status {
-  flex: 1 0 0;
+.list-item .due-date {
+  flex: 1 0 auto;
+}
+
+.list-item .status {
   /* border: 1px solid; */
-  min-width: 96px;
   width: 100%;
   position: relative;
 }
 
 .current {
   /* border: 1px solid; */
+  width: fit-content;
   padding: 5px 8px 6px 8px;
   border-radius: 16px !important;
   cursor: pointer;
@@ -98,14 +102,22 @@
 }
 
 .status .options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 1px solid;
-  width: 100%;
+  width: 94px;
+
   background-color: #ffffff;
   border-radius: 6px;
   position: absolute;
   top: 0px;
   z-index: 20;
   cursor: pointer;
+}
+
+.status .options * {
+  /* min-width: fit-content; */
 }
 
 .options button {
@@ -126,6 +138,11 @@
   flex-wrap: wrap;
 }
 
+.list-item .edit-delete {
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (max-width: 576px) {
   .list-item {
     min-width: 100%;
@@ -133,7 +150,15 @@
 
   .actions {
     flex-direction: column;
+    align-items: center;
   }
+
+  .actions .status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .dashboard .edit-delete {
     display: none;
   }

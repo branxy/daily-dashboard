@@ -40,8 +40,8 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
   }
 
   return (
-    <div className="list-item flex">
-      <div className="checkbox-and-title flex">
+    <div className="list-item">
+      <div className="checkbox-and-title">
         <TaskCheckboxField task={task} />
         <TaskTitleField
           task={task}
@@ -49,7 +49,7 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
           onSelectTask={onSelectTask}
         />
       </div>
-      <div className="actions flex">
+      <div className="actions">
         <TaskDueDate
           dueDate={task.dueDate}
           isEditingDate={isEditingDate}
@@ -57,9 +57,9 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
           onInput={handleUpdateDate}
           source={source}
         />
-          <StatusField task={task} />
-          <DateCreatedField date={task.dateCreated} />
-        <div className="edit-delete flex">
+        <StatusField task={task} />
+        <DateCreatedField date={task.dateCreated} />
+        <div className="edit-delete">
           <EditSaveBtn isEditing={isEditing} onIsEditing={toggleEditing} />
           <DeleteTaskBtn task={task} />
         </div>
@@ -140,6 +140,7 @@ function TaskDueDate({
       .toLocaleString(undefined, options)
       .split(",")
       .join("");
+    console.log(dueDate.getDate());
     const minutes =
       dueDate.getMinutes() < 10
         ? `0${dueDate.getMinutes()}`
@@ -243,7 +244,7 @@ function StatusField({ task }: StatusFieldProps) {
 
   return (
     <>
-      <div className="status flex-col">
+      <div className="status">
         <button
           className={`current ${formatStatus(task.status)}`}
           onClick={() => setShowStatusOptions(true)}
@@ -251,10 +252,7 @@ function StatusField({ task }: StatusFieldProps) {
           {task.status}
         </button>
         {showStatusOptions && (
-          <div
-            className="options flex-col"
-            onClick={() => setShowStatusOptions(false)}
-          >
+          <div className="options" onClick={() => setShowStatusOptions(false)}>
             {options.map((item) => (
               <button key={item} onClick={() => handleChangeStatus(task, item)}>
                 {item}

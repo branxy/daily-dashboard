@@ -1,0 +1,138 @@
+.weather {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-radius: var(--border-rad);
+  padding-top: 8px;
+  min-width: 360px;
+  max-height: 220px;
+}
+
+.weather .heading-and-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 10px;
+  gap: 6px;
+  position: relative;
+}
+
+.heading-and-clock {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.weather .title-and-city {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.weather .loading {
+  text-align: center;
+}
+
+.weather .stats {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #55a5ff;
+  align-items: flex-start;
+  border-radius: 0px 0px var(--border-rad) var(--border-rad);
+  gap: 10px;
+  padding: 8px 12px 20px 12px;
+  flex-grow: 2;
+}
+
+.weather .main-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.main-stats .temp-and-icon {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.temp-and-icon .temperature {
+  color: var(--font-color-white);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.temp-and-icon .icon {
+  width: 40px;
+  height: 40px;
+}
+
+.main-stats .text {
+  display: flex;
+  flex-direction: column;
+  color: var(--font-color-white);
+  align-items: flex-start;
+  gap: 6px;
+  flex: 1 0 0;
+}
+
+.text span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text .feels-like {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+}
+
+.feels-like .text {
+  color: var(--gray-text);
+  font-size: 14px;
+}
+
+.feels-like .temp {
+  font-weight: 600;
+}
+
+.weather .secondary-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.secondary-stats .stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat span {
+  color: var(--font-color-white);
+  font-size: 12px;
+}
+
+@media screen and (max-width: 576px) {
+  .weather {
+    border: none;
+    height: 100%;
+    min-width: 320px;
+  }
+
+  .weather .title-and-city {
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+  }
+
+  .heading-and-clock {
+    align-items: flex-end;
+  }
+}

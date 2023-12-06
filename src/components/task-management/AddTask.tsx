@@ -12,7 +12,7 @@ export default function AddTask() {
   }
 
   return (
-    <div className="add-todo flex">
+    <div className="add-todo">
       <input
         placeholder="Add a task"
         value={newTaskTitle}
