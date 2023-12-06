@@ -204,7 +204,7 @@ a {
   display: block;
 }
 
-.home-page .tasks-list {
+.tasks-list {
   margin-top: 4px;
   padding-bottom: 4px;
 }
@@ -235,19 +235,17 @@ a {
 .weather .heading-and-info {
   width: 100%;
   padding: 0px 10px;
-  /* padding-right: 10px; */
-  justify-content: space-between;
+  gap: 6px;
   position: relative;
 }
 
-.weather .title-and-date {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  /* padding: 0px 12px; */
+.weather .title-and-city {
   gap: 6px;
-  /* flex-shrink: 0; */
-  align-self: stretch;
+}
+
+.weather .clock-and-tooltip {
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
 .weather .stats {
@@ -361,20 +359,33 @@ a {
 
   .tasks-and-weather {
     flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
   }
 }
 
 @media screen and (max-width: 576px) {
+  .home-page {
+    padding: 0px;
+  }
   .tasks,
   .weather {
     border: none;
+    height: 100%;
   }
-
   .dummy-div {
     padding: 0;
   }
-  
+
   .weather {
     min-width: 320px;
+  }
+  .weather .title-and-city {
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+  }
+  .weather .clock-and-tooltip {
+    height: 100%;
   }
 }

@@ -15,6 +15,10 @@
   /* cursor: pointer; */
 }
 
+.list-item:first-child {
+  padding: 0px 6px 10px 6px;
+}
+
 .list-item:last-child {
   border: none;
 }
@@ -123,7 +127,14 @@
 }
 
 @media screen and (max-width: 576px) {
+  .list-item {
+    min-width: 100%;
+  }
+
   .actions {
     flex-direction: column;
+  }
+  .dashboard .edit-delete {
+    display: none;
   }
 }
