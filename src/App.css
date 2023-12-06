@@ -19,7 +19,6 @@ html {
 
 body {
   font-family: "Average Sans", sans-serif;
-  overflow: hidden;
 }
 
 h1,
@@ -76,7 +75,7 @@ a {
 
 .App {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 18fr);
+  grid-template-columns: minmax(60px, 1fr) minmax(0, 18fr);
   position: relative;
 }
 
@@ -94,6 +93,9 @@ a {
 }
 
 .navbar .links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
@@ -112,6 +114,8 @@ a {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .home-page {
@@ -143,8 +147,6 @@ a {
   width: 100%;
   max-height: 520px;
   position: relative;
-  /* overflow: hidden; */
-  /* max-width: 400px; */
 }
 .tasks .dummy-div {
   /* border: 1px solid; */
@@ -152,8 +154,8 @@ a {
   flex-direction: column;
   max-height: 500px;
   padding: 0px 10px;
-  overflow-y: auto;
   position: relative;
+  overflow-y: auto;
 }
 
 .dummy-div > .title-and-info {
@@ -181,6 +183,7 @@ a {
 
 .tasks-list .dashboard {
   width: 100%;
+  padding-bottom: 12px;
 }
 
 .home-page .tasks-list button {

@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div className="links flex-col">
+        <div className="links">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active" : "")}
