@@ -77,16 +77,18 @@ export default function WeatherApp() {
         {details && (
           <>
             <div className="heading-and-info flex">
-              <div className="title-and-date">
+              <div className="title-and-city flex">
                 <h2>Weather</h2>
                 <span className="title">in {details.city_name},</span>
-                <Clock />
               </div>
-              <Tooltip
-                text={
-                  "Dynamic weather report based on Weatherbit data and Fetch API"
-                }
-              />
+              <div className="clock-and-tooltip flex">
+                <Clock />
+                <Tooltip
+                  text={
+                    "Dynamic weather report based on Weatherbit data and Fetch API"
+                  }
+                />
+              </div>
             </div>
             <div className="stats flex-col">
               <div className="main-stats">
@@ -147,14 +149,18 @@ export default function WeatherApp() {
   return (
     <>
       <div className="heading-and-info flex">
-        <div className="title-and-date">
+        <div className="title-and-city flex">
           <h2>Weather</h2>
-          <span className="title">in Saint-Petersburg,</span>
-          <Clock />
+          <span className="title">in Saint-Petersburg</span>
         </div>
-        <Tooltip
-          text={"Dynamic weather report based on Weatherbit data and Fetch API"}
-        />
+        <div className="clock-and-tooltip flex">
+          <Clock />
+          <Tooltip
+            text={
+              "Dynamic weather report based on Weatherbit data and Fetch API"
+            }
+          />
+        </div>
       </div>
       <div>Loading...</div>
     </>
