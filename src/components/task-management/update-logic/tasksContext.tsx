@@ -21,14 +21,13 @@ const exampleTask: TaskItem[] = [
 ];
 
 export function TasksProvider({ ...children }) {
-  const [tasks, dispatch] = useReducer(tasksReducer, []);
+  const [tasks, dispatch] = useReducer(
+    tasksReducer,
+    loadTasksFromStorage() || exampleTask
+  );
 
   useEffect(() => {
-    const loadedTasks = loadTasksFromStorage();
-    return () => {
-      if (loadedTasks !== undefined)
-        localStorage.setItem("tasks", JSON.stringify(loadedTasks));
-    };
+    loadTasksFromStorage();
   }, []);
 
   useEffect(() => {
@@ -37,22 +36,15 @@ export function TasksProvider({ ...children }) {
 
   function loadTasksFromStorage() {
     const savedTasks: Tasks =
-      JSON.parse(localStorage.getItem("tasks") as string) || [];
-
-    if (
-      savedTasks.length === 0 ||
-      savedTasks.every((task) => task.title === "Example task")
-    ) {
-      dispatch({ type: "init", tasks: exampleTask });
-      return savedTasks;
-    } else {
+      JSON.parse(localStorage.getItem("tasks") as string) || null;
+    if (savedTasks && savedTasks.length !== 0) {
       const convertedTasks = savedTasks.map((task) => ({
         ...task,
         dueDate: new Date(task.dueDate),
       }));
-      dispatch({ type: "init", tasks: convertedTasks });
       return convertedTasks;
-    }
+      // dispatch({ type: "init", tasks: convertedTasks });
+    } else return false;
   }
 
   return (

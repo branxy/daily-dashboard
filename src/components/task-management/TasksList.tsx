@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { dispatchTasksContext, tasksContext } from "./constants";
 import Task from "./Task";
-import { TaskAppType, TaskItem } from "./types";
+import { TaskAppType, TaskItem, Tasks } from "./types";
 
 type TasksListProps = {
   source: TaskAppType["source"];
 };
 
 export default function TasksList({ source = "original" }: TasksListProps) {
-  const tasks = useContext(tasksContext);
+  const tasks = useContext(tasksContext) as Tasks;
   const [selectedTask, setSelectedTask] = useState<TaskItem | null>(null);
   switch (source) {
     case "dashboard": {

@@ -116,10 +116,6 @@
   cursor: pointer;
 }
 
-.status .options * {
-  /* min-width: fit-content; */
-}
-
 .options button {
   background-color: transparent;
   border-radius: 6px;

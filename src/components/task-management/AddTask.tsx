@@ -1,10 +1,11 @@
 import { useState, useContext, ChangeEvent } from "react";
 
 import { dispatchTasksContext, tasksContext } from "./constants";
+import { Tasks } from "./types";
 
 export default function AddTask() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const tasks = useContext(tasksContext);
+  const tasks = useContext(tasksContext) as Tasks;
   const dispatch = useContext(dispatchTasksContext);
   let nextId = tasks.length + 1;
   function handleNewTaskTitle(e: ChangeEvent<HTMLInputElement>) {

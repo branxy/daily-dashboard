@@ -140,7 +140,6 @@ function TaskDueDate({
       .toLocaleString(undefined, options)
       .split(",")
       .join("");
-    console.log(dueDate.getDate());
     const minutes =
       dueDate.getMinutes() < 10
         ? `0${dueDate.getMinutes()}`
