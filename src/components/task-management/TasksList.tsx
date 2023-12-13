@@ -70,7 +70,7 @@ function Modal({ task, setSelectedTask }: ModalProps) {
           className="close-modal-btn"
           onClick={() => setSelectedTask(null)}
         >
-          X
+          <span className="material-symbols-outlined">close</span>
         </button>
         <div
           className="title"

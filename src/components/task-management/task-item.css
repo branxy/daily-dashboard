@@ -1,23 +1,22 @@
 /* TO DO ITEM */
 .list-item {
-  display: flex;
   width: 100%;
   min-width: 360px;
-  border-bottom: 1px solid;
   padding: 10px 6px;
+  display: flex;
+  align-items: center;
   gap: 8px;
-  box-sizing: border-box;
+  border-bottom: 1px solid var(--font-color);
 }
 
 .list-item:hover {
-  outline: 2px solid var(--accent-color);
   border: none;
+  outline: 2px solid var(--accent-color);
   border-radius: 4px;
-  /* cursor: pointer; */
 }
 
-.list-item:first-child {
-  padding: 4px 6px 4px 6px;
+.original .list-item:first-child {
+  margin-top: 2px;
 }
 
 .list-item:last-child {
@@ -33,6 +32,7 @@
 
 /* 1. Checkbox */
 .list-item input[type="checkbox"] {
+  /* accent-color: var(--accent-color); */
   min-width: 18px;
   min-height: 18px;
   cursor: pointer;
@@ -53,9 +53,11 @@
 }
 
 .list-item input[type="text"] {
+  font-family: "Average Sans", sans-serif;
+  font-size: 16px;
   width: 100%;
   flex: 20 0 0;
-  padding: 2px 4px;
+  padding: 2px 0px;
   appearance: none;
   outline: none;
   border: none;
@@ -65,6 +67,7 @@
 .actions {
   display: flex;
   align-items: center;
+  gap: 2px;
 }
 
 .list-item .due-date {
@@ -81,24 +84,20 @@
   /* border: 1px solid; */
   width: fit-content;
   padding: 5px 8px 6px 8px;
-  border-radius: 16px !important;
+  border-radius: 16px;
   cursor: pointer;
 }
 
-.tasks-list .current:hover {
-  outline: 1px solid;
-}
-
-.tasks-list .current.done {
-  background-color: rgb(123, 255, 123);
+.tasks-list .current.not-started {
+  background-color: var(--status-not-started);
 }
 
 .tasks-list .current.in-progress {
-  background-color: rgba(255, 192, 75, 0.637);
+  background-color: var(--status-in-progress);
 }
 
-.tasks-list .current.not-started {
-  background-color: rgb(255, 135, 131);
+.tasks-list .current.done {
+  background-color: var(--status-done);
 }
 
 .status .options {
@@ -107,8 +106,7 @@
   align-items: center;
   border: 1px solid;
   width: 94px;
-
-  background-color: #ffffff;
+  background-color: var(--bg-accent-color);
   border-radius: 6px;
   position: absolute;
   top: 0px;
@@ -118,13 +116,23 @@
 
 .options button {
   background-color: transparent;
-  border-radius: 6px;
   width: 100%;
   padding: 5px 8px 6px 8px;
 }
 
 .options button:hover {
-  background-color: var(--accent-color);
+  border: none !important;
+  background-color: var(--btn-bg-hover);
+}
+
+.options button:first-child:hover {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.options button:last-child:hover {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .date-created {

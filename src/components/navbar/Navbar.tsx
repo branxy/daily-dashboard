@@ -1,7 +1,14 @@
 import { NavLink } from "react-router-dom";
 import Clock from "../clock/Clock";
+import { ThemeSwitcher } from "./ThemeSwitcher";
+import { SetStateAction } from "react";
 
-export default function Navbar() {
+export type NavbarProps = {
+  darkMode: string;
+  setDarkMode: React.Dispatch<SetStateAction<string>>;
+};
+
+export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   return (
     <>
       <nav className="navbar">
@@ -19,7 +26,10 @@ export default function Navbar() {
             <span className="material-symbols-outlined">task_alt</span>
           </NavLink>
         </div>
-        <Clock />
+        <div className="theme-and-clock">
+          <ThemeSwitcher darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Clock darkMode={darkMode} />
+        </div>
       </nav>
     </>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Clock() {
+function Clock({ darkMode }: { darkMode: string }) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -12,7 +12,16 @@ function Clock() {
   }, []);
 
   const formattedTime = time.toLocaleTimeString();
-  return <p className="clock">{formattedTime}</p>;
+  return (
+    <p
+      className="clock"
+      style={{
+        color: darkMode === "darkmode" ? "rgba(255, 255, 255, 0.84)" : "",
+      }}
+    >
+      {formattedTime}
+    </p>
+  );
 }
 
 export default Clock;
