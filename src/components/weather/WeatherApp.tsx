@@ -82,7 +82,7 @@ export default function WeatherApp() {
                   <h2>Weather</h2>
                   <span className="title">in {details.city_name}</span>
                 </div>
-                <Clock />
+                <Clock darkMode="" />
               </div>
               <Tooltip
                 text={
@@ -154,7 +154,7 @@ export default function WeatherApp() {
             <h2>Weather</h2>
             <span className="title">in Saint-Petersburg</span>
           </div>
-          <Clock />
+          <Clock darkMode="" />
         </div>
         <Tooltip
           text={"Dynamic weather report based on Weatherbit data and Fetch API"}
