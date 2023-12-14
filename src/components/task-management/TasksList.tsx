@@ -15,20 +15,24 @@ export default function TasksList({ source = "original" }: TasksListProps) {
       const todayTasks = tasks.filter((task) => {
         return task.dueDate.toDateString() === new Date().toDateString();
       });
+      let tasksInformation;
+      if (todayTasks.length !== 0) {
+        tasksInformation = todayTasks.map((task: TaskItem) => {
+          return (
+            <Task
+              key={task.id}
+              task={task}
+              source={source}
+              onSelectTask={() => setSelectedTask(task)}
+            />
+          );
+        });
+      } else {
+        tasksInformation = <p>No tasks are scheduled for today</p>;
+      }
       return (
         <div className="tasks-list">
-          <div className={source}>
-            {todayTasks.map((task: TaskItem) => {
-              return (
-                <Task
-                  key={task.id}
-                  task={task}
-                  source={source}
-                  onSelectTask={() => setSelectedTask(task)}
-                />
-              );
-            })}
-          </div>
+          <div className={source}>{tasksInformation}</div>
         </div>
       );
     }
