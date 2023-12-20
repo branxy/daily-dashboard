@@ -15,6 +15,7 @@ export default function AddTask() {
   return (
     <div className="add-todo">
       <input
+        type="text"
         placeholder="Add a task"
         value={newTaskTitle}
         onChange={handleNewTaskTitle}
@@ -28,7 +29,6 @@ export default function AddTask() {
             });
           }
         }}
-        autoFocus
       ></input>
       <button
         className="primary"
