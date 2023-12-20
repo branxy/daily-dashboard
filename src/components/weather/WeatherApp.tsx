@@ -94,7 +94,7 @@ export default function WeatherApp() {
               <div className="main-stats">
                 <div className="temp-and-icon">
                   <span className="temperature">
-                    {details.temp > 0 ? "+" : "-"}
+                    {details.temp > 0 ? "+" : ""}
                     {details.temp}℃
                   </span>
                   <img
@@ -108,7 +108,7 @@ export default function WeatherApp() {
                   <div className="feels-like">
                     <span className="text">Feels like </span>
                     <span className="temp">
-                      {details.app_temp > 0 ? "+" : "-"}
+                      {details.app_temp > 0 ? "+" : ""}
                       {details.app_temp}℃
                     </span>
                   </div>
