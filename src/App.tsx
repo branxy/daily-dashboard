@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import TaskApp from "./components/task-management/TaskApp";
 import TestPage from "./pages/TestPage";
 
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +35,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <SpeedInsights />
     </div>
   );
 }
