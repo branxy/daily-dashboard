@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { fetchWeatherData } from "./weatherAPI";
+import { useEffect, useState } from "react";
 import Clock from "../clock/Clock";
 import Tooltip from "../Tooltip";
 
@@ -62,25 +61,36 @@ export default function WeatherApp() {
     : null;
   const [weatherData, setWeatherData] = useState(savedWeather);
 
-  function msPassedFromLastWeatherFetch() {
-    const currentTime = Date.now();
-    return currentTime - weatherData!.dateCreated;
-  }
+  useEffect(() => {
+    function msPassedFromLastWeatherFetch() {
+      const currentTime = Date.now();
+      return currentTime - weatherData!.dateCreated;
+    }
 
-  async function fetchAndSave() {
-    const fetchedData = await fetchWeatherData();
-    if (fetchedData) {
-      setWeatherData(fetchedData);
-      return <WeatherInfo data={fetchedData.data[0]} />;
+    if (weatherData === null || msPassedFromLastWeatherFetch() >= 7200000) {
+      fetchWeatherData();
+    }
+  }, [weatherData]);
+
+  async function fetchWeatherData() {
+    const key = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY;
+    const apiUrl = `https://api.weatherbit.io/v2.0/current?lat=59.9342802&lon=30.3350986&key=${key}`;
+    try {
+      const response = await fetch(apiUrl);
+      const parsedData = (await response.json()) as dataType;
+      const modifiedData = {
+        dateCreated: Date.now(),
+        data: parsedData,
+      };
+      localStorage.setItem("dd-weather", JSON.stringify(modifiedData));
+      setWeatherData(modifiedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
     }
   }
-
-  if (weatherData === null || msPassedFromLastWeatherFetch() >= 7200000) {
-    fetchAndSave();
-  }
-  return <WeatherInfo data={weatherData.data.data[0]} />;
+  if (weatherData) return <WeatherInfo data={weatherData.data.data[0]} />;
 }
-
 function WeatherInfo({ data }: { data: dataItem["data"] }) {
   if (data) {
     const wind = Math.round(data.gust);
