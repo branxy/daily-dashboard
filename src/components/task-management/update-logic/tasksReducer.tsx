@@ -8,6 +8,22 @@ export function tasksReducer(tasks, action: Action) {
     if (error) console.log(error);
   }
 
+  async function updateTask(task) {
+    const { error } = await supabase
+      .from("todos")
+      .update(task)
+      .eq("id", task.id);
+
+    if (error) {
+      console.error(error);
+    }
+  }
+
+  async function deleteTask(id) {
+    const { error } = await supabase.from("todos").delete().eq("id", id);
+    if (error) console.error(error);
+  }
+
   function compareStatus(a: string, b: string): number {
     const statusOrder = ["Not started", "In progress", "Done"];
     return statusOrder.indexOf(a) - statusOrder.indexOf(b);
@@ -37,6 +53,7 @@ export function tasksReducer(tasks, action: Action) {
       if ("task" in action) {
         return tasks.map((t) => {
           if (t.id === action.task.id) {
+            updateTask(action.task);
             return action.task;
           } else return t;
         });
@@ -44,7 +61,10 @@ export function tasksReducer(tasks, action: Action) {
       throw new Error("Unexpected type of action");
     }
     case "deleted": {
-      if ("id" in action) return tasks.filter((task) => task.id !== action.id);
+      if ("id" in action) {
+        deleteTask(action.id);
+        return tasks.filter((task) => task.id !== action.id);
+      }
       throw new Error("Unexpected type of action");
     }
     case "sorted-reverse": {
