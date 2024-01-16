@@ -1,6 +1,13 @@
+import { Database } from "../../../../types_supabase";
+import { supabase } from "../../../supabaseClient";
 import { Action, Tasks } from "../types";
 
-export function tasksReducer(tasks: Tasks, action: Action): Tasks {
+export function tasksReducer(tasks, action: Action) {
+  async function uploadTask(task) {
+    const { error } = await supabase.from("todos").insert(task);
+    if (error) console.log(error);
+  }
+
   function compareStatus(a: string, b: string): number {
     const statusOrder = ["Not started", "In progress", "Done"];
     return statusOrder.indexOf(a) - statusOrder.indexOf(b);
@@ -13,24 +20,16 @@ export function tasksReducer(tasks: Tasks, action: Action): Tasks {
     }
     case "added": {
       if ("id" in action && "title" in action) {
-        const options: Record<string, string> = {
-          year: "numeric",
-          month: "short",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
+        const newTask = {
+          title: action.title,
+          description: "",
+          due_date: new Date().toISOString(),
+          status: "Not started",
+          date_created: new Date().toISOString(),
         };
-        return [
-          {
-            id: action.id,
-            title: action.title,
-            text: "",
-            dueDate: new Date(),
-            status: "Not started",
-            dateCreated: new Date().toLocaleString(undefined, options),
-          },
-          ...tasks,
-        ];
+
+        uploadTask(newTask);
+        return [newTask, ...tasks];
       }
       throw new Error("Unexpected type of action");
     }

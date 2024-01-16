@@ -2,18 +2,31 @@ import { useContext, useState } from "react";
 import { dispatchTasksContext, tasksContext } from "./constants";
 import Task from "./Task";
 import { TaskAppType, TaskItem, Tasks } from "./types";
+import { Database } from "../../../types_supabase";
 
 type TasksListProps = {
   source: TaskAppType["source"];
 };
 
+const exampleTaskFromSpb = {
+  id: 3,
+  title: "test task 1 spb",
+  description: null,
+  due_date: "2024-01-16T07:25:33.656423+00:00",
+  status: "not-started",
+  date_created: "2024-01-16T07:25:33.656423+00:00",
+  user_id: "23ddd7b6-0faf-4d3c-86ee-8ae64b221965",
+};
+
 export default function TasksList({ source = "original" }: TasksListProps) {
-  const tasks = useContext(tasksContext) as Tasks;
+  const tasks = useContext(tasksContext);
   const [selectedTask, setSelectedTask] = useState<TaskItem | null>(null);
   switch (source) {
     case "dashboard": {
       const todayTasks = tasks.filter((task) => {
-        return task.dueDate.toDateString() === new Date().toDateString();
+        return (
+          task.due_date.slice(0, 10) === new Date().toISOString().slice(0, 10)
+        );
       });
       let tasksInformation;
       if (todayTasks.length !== 0) {
@@ -102,7 +115,7 @@ function Modal({ task, setSelectedTask }: ModalProps) {
             }
           }}
         >
-          {task.text === "" ? "" : task.text}
+          {task.description === "" ? "" : task.text}
         </div>
       </div>
     );

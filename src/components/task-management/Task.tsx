@@ -10,7 +10,7 @@ import { dispatchTasksContext } from "./constants";
 import { TaskAppType, TaskItem } from "./types";
 
 type TaskProps = {
-  readonly task: TaskItem;
+  readonly task;
   source: TaskAppType["source"];
   onSelectTask: () => void;
 };
@@ -51,14 +51,14 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
       </div>
       <div className="actions">
         <TaskDueDate
-          dueDate={task.dueDate}
+          dueDate={task.due_date}
           isEditingDate={isEditingDate}
           setIsEditingDate={setIsEditingDate}
           onInput={handleUpdateDate}
           source={source}
         />
         <StatusField task={task} />
-        <DateCreatedField date={task.dateCreated} />
+        <DateCreatedField date={task.date_created} />
         <div className="edit-delete">
           <EditSaveBtn isEditing={isEditing} onIsEditing={toggleEditing} />
           <DeleteTaskBtn task={task} />
@@ -94,11 +94,21 @@ function TaskCheckboxField({ task }: TaskCheckboxFieldProps) {
 }
 
 type TaskDueDateProps = {
-  readonly dueDate: Date;
+  readonly dueDate: string;
   readonly isEditingDate: boolean;
   setIsEditingDate: Dispatch<SetStateAction<boolean>>;
   onInput: (e: ChangeEvent<HTMLInputElement>) => void;
   source: TaskAppType["source"];
+};
+
+const exampleTaskFromSpb = {
+  id: 3,
+  title: "test task 1 spb",
+  description: null,
+  due_date: "2024-01-16T07:25:33.656423+00:00",
+  status: "not-started",
+  date_created: "2024-01-16T07:25:33.656423+00:00",
+  user_id: "23ddd7b6-0faf-4d3c-86ee-8ae64b221965",
 };
 
 function TaskDueDate({
@@ -111,22 +121,14 @@ function TaskDueDate({
   const dateInputRef = useRef<HTMLInputElement>(null);
   let dateContent;
 
-  if (isEditingDate) {
-    const adjustedUTC = new Date(
-      dueDate.getTime() - dueDate.getTimezoneOffset() * 60000
-    );
-    const utcString = adjustedUTC.toISOString().slice(0, 16);
+  function getLocalDateTime(date: string, format: string) {
+    const dateObj = new Date(date);
 
-    dateContent = (
-      <input
-        ref={dateInputRef}
-        type="datetime-local"
-        name="due-date"
-        value={utcString}
-        onChange={onInput}
-      />
+    const adjustedUTC = new Date(
+      dateObj.getTime() - dateObj.getTimezoneOffset() * 60000
     );
-  } else {
+    const utcString = adjustedUTC.toISOString();
+
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const options = {
       timeZone: userTimeZone,
@@ -136,21 +138,49 @@ function TaskDueDate({
       hour: "2-digit",
       minute: "2-digit",
     } as const;
-    const fullDate = dueDate
+    const fullDate = new Date(date)
       .toLocaleString(undefined, options)
       .split(",")
       .join("");
+
     const minutes =
-      dueDate.getMinutes() < 10
-        ? `0${dueDate.getMinutes()}`
-        : dueDate.getMinutes();
-    const time = `${dueDate.getHours()}:${minutes}`;
+      Number(utcString.slice(14, 16)) < 10
+        ? `0${utcString.slice(15, 15)}`
+        : `${utcString.slice(14, 16)}`;
+    const time = `${utcString.slice(11, 13)}:${minutes}`;
+    switch (format) {
+      case "fullDate":
+        return fullDate;
+        break;
+      case "date":
+        return utcString.slice(0, 16);
+      case "time":
+        return time;
+        break;
+      default:
+        return date;
+    }
+  }
+
+  if (isEditingDate) {
+    dateContent = (
+      <input
+        ref={dateInputRef}
+        type="datetime-local"
+        name="due-date"
+        value={getLocalDateTime(dueDate, "date")}
+        onChange={onInput}
+      />
+    );
+  } else {
     dateContent = (
       <button
         className="secondary"
         onClick={() => setIsEditingDate(!isEditingDate)}
       >
-        {source === "original" ? fullDate : `Today ${time}`}
+        {source === "original"
+          ? getLocalDateTime(dueDate, "fullDate")
+          : `Today ${getLocalDateTime(dueDate, "time")}`}
       </button>
     );
   }

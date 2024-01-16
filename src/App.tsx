@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { supabase } from "./supabaseClient.ts";
+
 import "./App.css";
 import IndexPage from "./pages/IndexPage";
 import ErrorPage from "./pages/ErrorPage";
@@ -8,6 +10,10 @@ import TaskApp from "./components/task-management/TaskApp";
 import TestPage from "./pages/TestPage";
 
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { useEffect, useState } from "react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { Auth } from "@supabase/auth-ui-react";
+import { Session } from "@supabase/supabase-js";
 
 const router = createBrowserRouter([
   {
@@ -32,12 +38,36 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <div className="App">
-      <RouterProvider router={router} />
-      <SpeedInsights />
-    </div>
-  );
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (!session) {
+    return (
+      <div className="auth">
+        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <RouterProvider router={router} />
+        <SpeedInsights />
+      </div>
+    );
+  }
 }
 
 export default App;

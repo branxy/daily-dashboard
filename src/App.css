@@ -115,6 +115,19 @@ a {
   color: var(--font-color);
 }
 
+.auth {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.auth * {
+  width: 400px;
+}
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -283,6 +296,10 @@ a {
     display: block;
   }
 
+  .auth * {
+    width: 400px;
+  }
+
   .navbar {
     flex-direction: row;
     width: 100%;
@@ -317,6 +334,10 @@ a {
 }
 
 @media screen and (max-width: 576px) {
+  .auth * {
+    width: 100%;
+  }
+  
   .home-page {
     padding: 0px;
   }

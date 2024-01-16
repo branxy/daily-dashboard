@@ -4,16 +4,16 @@ export type TaskAppType = {
   readonly source?: string;
 };
 
-export type TaskItem = {
-  id: number;
-  title: string;
-  text: string;
-  dueDate: Date;
-  readonly status: "Not started" | "In progress" | "Done";
-  dateCreated: string;
-};
+// export type TaskItem = {
+//   id: number;
+//   title: string;
+//   text: string;
+//   dueDate: Date;
+//   readonly status: "Not started" | "In progress" | "Done";
+//   dateCreated: string;
+// };
 
-export type Tasks = TaskItem[] | [];
+// export type Tasks = TaskItem[] | [];
 
 type EmptyAction = { type: string };
 
