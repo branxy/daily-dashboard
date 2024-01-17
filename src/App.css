@@ -7,6 +7,12 @@ html {
   box-sizing: border-box;
 }
 
+html,
+:root,
+body {
+  height: 100%;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -59,6 +65,18 @@ html {
 
 body {
   font-family: "Average Sans", sans-serif;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  width: 100%;
 }
 
 h1,
@@ -116,16 +134,21 @@ a {
 }
 
 .auth {
-  width: 100%;
+  width: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 10px 20px;
 }
 
-.auth * {
-  width: 400px;
+.auth p {
+  margin-bottom: 24px;
+}
+
+.auth div {
+  width: 100%;
 }
 
 .navbar {
@@ -296,12 +319,14 @@ a {
     display: block;
   }
 
-  .auth * {
-    width: 400px;
+  .auth {
+    width: 80%;
+    margin: auto;
   }
 
   .navbar {
     flex-direction: row;
+    gap: 24px;
     width: 100%;
     height: 60px;
     padding: 0px 12px;
@@ -313,9 +338,16 @@ a {
 
   .navbar .links {
     flex-direction: row;
-    flex: 2;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-end;
+    gap: 24px;
+    flex: 1 0 0;
+  }
+
+  .navbar .theme-and-clock {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
   }
 
   .navbar .clock {
@@ -334,13 +366,27 @@ a {
 }
 
 @media screen and (max-width: 576px) {
-  .auth * {
+  .auth {
     width: 100%;
   }
-  
+
+  .auth h1 {
+    font-size: 24px;
+  }
+
+  .navbar {
+    gap: 12px;
+  }
+
+  .navbar .links,
+  .navbar .theme-and-clock {
+    gap: 12px;
+  }
+
   .home-page {
     padding: 0px;
   }
+
   .tasks {
     border: none;
     height: 100%;

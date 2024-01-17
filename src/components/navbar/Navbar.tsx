@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import Clock from "../clock/Clock";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { SetStateAction } from "react";
+import Logout from "./Logout";
 
 export type NavbarProps = {
   darkMode: string;
@@ -28,6 +29,7 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
         </div>
         <div className="theme-and-clock">
           <ThemeSwitcher darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Logout />
           <Clock darkMode={darkMode} />
         </div>
       </nav>

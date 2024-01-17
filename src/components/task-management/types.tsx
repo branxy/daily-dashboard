@@ -1,8 +1,8 @@
 // type Status = "Not started" | "In progress" | "Done";
 
-export type TaskAppType = {
-  readonly source?: string;
-};
+// export type TaskAppType = {
+//   readonly source?: string;
+// };
 
 // export type TaskItem = {
 //   id: number;
@@ -15,34 +15,34 @@ export type TaskAppType = {
 
 // export type Tasks = TaskItem[] | [];
 
-type EmptyAction = { type: string };
+// type EmptyAction = { type: string };
 
-type ActionInit = {
-  type: "init";
-  tasks: TaskItem[];
-};
+// type ActionInit = {
+//   type: "init";
+//   tasks: TaskItem[];
+// };
 
-type ActionAdded = {
-  type: "added";
-  id: number;
-  title: string;
-};
+// type ActionAdded = {
+//   type: "added";
+//   id: number;
+//   title: string;
+// };
 
-type ActionChanged = {
-  type: "changed";
-  task: TaskItem;
-};
+// type ActionChanged = {
+//   type: "changed";
+//   task: TaskItem;
+// };
 
 type ActionDeleted = {
   type: "deleted";
   id: number;
 };
 
-export type Action =
-  | EmptyAction
-  | ActionInit
-  | ActionAdded
-  | ActionChanged
-  | ActionDeleted;
+// export type Action =
+//   | EmptyAction
+//   | ActionInit
+//   | ActionAdded
+//   | ActionChanged
+//   | ActionDeleted;
 
-export type Dispatch = (obj: Action) => void;
+// export type Dispatch = (obj: Action) => void;

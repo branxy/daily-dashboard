@@ -34,7 +34,7 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
     }
     dispatch({
       type: "changed",
-      task: { ...task, dueDate: newDate },
+      task: { ...task, due_date: newDate },
     });
     document.addEventListener("click", autoCloseDatePicker, { once: true });
   }

@@ -110,12 +110,12 @@ function Modal({ task, setSelectedTask }: ModalProps) {
             if (e.target.textContent) {
               dispatch({
                 type: "changed",
-                task: { ...task, text: e.target.textContent },
+                task: { ...task, description: e.target.textContent },
               });
             }
           }}
         >
-          {task.description === "" ? "" : task.text}
+          {task.description === "" ? "" : task.description}
         </div>
       </div>
     );

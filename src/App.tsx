@@ -57,7 +57,13 @@ function App() {
   if (!session) {
     return (
       <div className="auth">
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+        <h1>✅ Daily Dashboard</h1>
+        <p>Welcome! Please register or sign in to continue.</p>
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          providers={[]}
+        />
       </div>
     );
   } else {
