@@ -1,13 +1,10 @@
 import { useState, useContext, ChangeEvent } from "react";
 
-import { dispatchTasksContext, tasksContext } from "./constants";
-import { Tasks } from "./types";
+import { dispatchTasksContext } from "./constants";
 
 export default function AddTask() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const tasks = useContext(tasksContext) as Tasks;
   const dispatch = useContext(dispatchTasksContext);
-  let nextId = tasks.length + 1;
   function handleNewTaskTitle(e: ChangeEvent<HTMLInputElement>) {
     setNewTaskTitle(e.target.value);
   }
@@ -24,7 +21,6 @@ export default function AddTask() {
             setNewTaskTitle("");
             dispatch({
               type: "added",
-              id: nextId++,
               title: newTaskTitle,
             });
           }
@@ -37,7 +33,6 @@ export default function AddTask() {
           setNewTaskTitle("");
           dispatch({
             type: "added",
-            id: nextId++,
             title: newTaskTitle,
           });
         }}

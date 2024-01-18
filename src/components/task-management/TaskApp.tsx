@@ -1,10 +1,10 @@
 import AddTask from "./AddTask";
 import TasksList from "./TasksList";
-import { TaskAppType } from "./types";
+import { Source } from "./types";
 import { TasksProvider } from "./update-logic/tasksContext";
 
 type TaskAppProps = {
-  source: TaskAppType["source"];
+  source: Source;
 };
 
 function TaskApp({ source }: TaskAppProps) {
@@ -22,7 +22,7 @@ function TaskAppSwitcher({ source }: TaskAppProps) {
     case "dashboard": {
       return (
         <div className="to-do-app">
-            <TasksList source="dashboard" />
+          <TasksList source="dashboard" />
         </div>
       );
     }
@@ -30,8 +30,8 @@ function TaskAppSwitcher({ source }: TaskAppProps) {
       return (
         <div className="to-do-app">
           <h2>To-do list</h2>
-            <AddTask />
-            <TasksList source="original" />
+          <AddTask />
+          <TasksList source="original" />
         </div>
       );
     }

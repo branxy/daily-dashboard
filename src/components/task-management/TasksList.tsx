@@ -1,81 +1,71 @@
 import { useContext, useState } from "react";
 import { dispatchTasksContext, tasksContext } from "./constants";
 import Task from "./Task";
-import { TaskAppType, TaskItem, Tasks } from "./types";
-import { Database } from "../../../types_supabase";
+import { Source, TaskType } from "./types";
 
-type TasksListProps = {
-  source: TaskAppType["source"];
-};
-
-const exampleTaskFromSpb = {
-  id: 3,
-  title: "test task 1 spb",
-  description: null,
-  due_date: "2024-01-16T07:25:33.656423+00:00",
-  status: "not-started",
-  date_created: "2024-01-16T07:25:33.656423+00:00",
-  user_id: "23ddd7b6-0faf-4d3c-86ee-8ae64b221965",
-};
-
+interface TasksListProps {
+  source: Source;
+}
 export default function TasksList({ source = "original" }: TasksListProps) {
-  const tasks = useContext(tasksContext);
-  const [selectedTask, setSelectedTask] = useState<TaskItem | null>(null);
-  switch (source) {
-    case "dashboard": {
-      const todayTasks = tasks.filter((task) => {
-        return (
-          task.due_date.slice(0, 10) === new Date().toISOString().slice(0, 10)
-        );
-      });
-      let tasksInformation;
-      if (todayTasks.length !== 0) {
-        tasksInformation = todayTasks.map((task: TaskItem) => {
+  const tasks = useContext<TaskType[] | null>(tasksContext);
+  const [selectedTask, setSelectedTask] = useState<TaskType | null>(null);
+  if (tasks) {
+    switch (source) {
+      case "dashboard": {
+        const todayTasks = tasks.filter((task: TaskType) => {
           return (
-            <Task
-              key={task.id}
-              task={task}
-              source={source}
-              onSelectTask={() => setSelectedTask(task)}
-            />
+            task.due_date.slice(0, 10) === new Date().toISOString().slice(0, 10)
           );
         });
-      } else {
-        tasksInformation = <p>No tasks are scheduled for today</p>;
-      }
-      return (
-        <div className="tasks-list">
-          <div className={source}>{tasksInformation}</div>
-        </div>
-      );
-    }
-    default: {
-      return (
-        <>
+        let tasksInformation;
+        if (todayTasks.length !== 0) {
+          tasksInformation = todayTasks.map((task: TaskType) => {
+            return (
+              <Task
+                key={tasks.length + 1}
+                task={task}
+                source={source}
+                onSelectTask={() => setSelectedTask(task)}
+              />
+            );
+          });
+        } else {
+          tasksInformation = <p>No tasks are scheduled for today</p>;
+        }
+        return (
           <div className="tasks-list">
-            <div className={source}>
-              {tasks.map((task) => {
-                return (
-                  <Task
-                    key={task.id}
-                    task={task}
-                    source={source}
-                    onSelectTask={() => setSelectedTask(task)}
-                  />
-                );
-              })}
-            </div>
-            <Modal task={selectedTask} setSelectedTask={setSelectedTask} />
+            <div className={source}>{tasksInformation}</div>
           </div>
-        </>
-      );
+        );
+      }
+      default: {
+        return (
+          <>
+            <div className="tasks-list">
+              <div className={source}>
+                {tasks.map((task) => {
+                  return (
+                    <Task
+                      key={task.id}
+                      task={task}
+                      source={source}
+                      onSelectTask={() => setSelectedTask(task)}
+                    />
+                  );
+                })}
+              </div>
+              <Modal task={selectedTask} setSelectedTask={setSelectedTask} />
+            </div>
+          </>
+        );
+      }
     }
   }
 }
 
 type ModalProps = {
-  task: TaskItem | null;
-  setSelectedTask: React.Dispatch<React.SetStateAction<TaskItem | null>>;
+  task: TaskType | null;
+  setSelectedTask: React.Dispatch<React.SetStateAction<TaskType | null>>;
 };
 
 function Modal({ task, setSelectedTask }: ModalProps) {

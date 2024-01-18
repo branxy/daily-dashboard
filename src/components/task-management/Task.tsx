@@ -7,11 +7,11 @@ import {
   useState,
 } from "react";
 import { dispatchTasksContext } from "./constants";
-import { TaskAppType, TaskItem } from "./types";
+import { Source, TaskType } from "./types";
 
 type TaskProps = {
-  readonly task;
-  source: TaskAppType["source"];
+  readonly task: TaskType;
+  source: Source;
   onSelectTask: () => void;
 };
 
@@ -25,7 +25,7 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
 
   function handleUpdateDate(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
-    const newDate = new Date(input.value);
+    const newDate = new Date(input.value).toISOString();
 
     function autoCloseDatePicker(e: MouseEvent) {
       if (e.target !== input) {
@@ -69,7 +69,7 @@ export default function Task({ task, source, onSelectTask }: TaskProps) {
 }
 
 type TaskCheckboxFieldProps = {
-  readonly task: TaskItem;
+  readonly task: TaskProps["task"];
 };
 
 function TaskCheckboxField({ task }: TaskCheckboxFieldProps) {
@@ -98,17 +98,7 @@ type TaskDueDateProps = {
   readonly isEditingDate: boolean;
   setIsEditingDate: Dispatch<SetStateAction<boolean>>;
   onInput: (e: ChangeEvent<HTMLInputElement>) => void;
-  source: TaskAppType["source"];
-};
-
-const exampleTaskFromSpb = {
-  id: 3,
-  title: "test task 1 spb",
-  description: null,
-  due_date: "2024-01-16T07:25:33.656423+00:00",
-  status: "not-started",
-  date_created: "2024-01-16T07:25:33.656423+00:00",
-  user_id: "23ddd7b6-0faf-4d3c-86ee-8ae64b221965",
+  readonly source: Source;
 };
 
 function TaskDueDate({
@@ -188,7 +178,7 @@ function TaskDueDate({
 }
 
 type TaskTitleFieldProps = {
-  readonly task: TaskItem;
+  readonly task: TaskProps["task"];
   readonly isEditing: boolean;
   onSelectTask: () => void;
 };
@@ -230,7 +220,7 @@ function TaskTitleField({
   return <div className="list-item-title">{toDoContent}</div>;
 }
 type StatusFieldProps = {
-  readonly task: TaskItem;
+  readonly task: TaskProps["task"];
 };
 
 function StatusField({ task }: StatusFieldProps) {
@@ -242,34 +232,16 @@ function StatusField({ task }: StatusFieldProps) {
     return string.toLowerCase().split(" ").join("-");
   }
 
-  function handleChangeStatus(task: TaskItem, otherStatus: TaskItem["status"]) {
+  function handleChangeStatus(
+    task: TaskProps["task"],
+    otherStatus: TaskProps["task"]["status"]
+  ) {
     dispatch({
       type: "changed",
       task: { ...task, status: otherStatus },
     });
     setShowStatusOptions(false);
   }
-
-  // if (showStatusOptions) {
-  //   statusVariant = (
-  //     <div className="options flex-col">
-  //       {options.map((item) => (
-  //         <button key={item} onClick={(e) => handleChangeStatus(task, item)}>
-  //           {item}
-  //         </button>
-  //       ))}
-  //     </div>
-  //   );
-  // } else {
-  //   statusVariant = (
-  //     <button
-  //       className={`current ${formatStatus(task.status)}`}
-  //       onClick={() => setShowStatusOptions(true)}
-  //     >
-  //       {task.status}
-  //     </button>
-  //   );
-  // }
 
   return (
     <>
@@ -289,37 +261,13 @@ function StatusField({ task }: StatusFieldProps) {
             ))}
           </div>
         )}
-        {/* {statusVariant} */}
-        {/* <div className="current flex-col">
-          <span
-            className={formatStatus(task.status)}
-            onClick={() => setShowStatusOptions(true)}
-          >
-            {task.status}
-          </span>
-        </div>
-        {showStatusOptions && (
-          <div
-            className="options flex-col"
-            onClick={() => setShowStatusOptions(false)}
-          >
-            {options.map((item) => (
-              <button
-                key={item}
-                onClick={(e) => handleChangeStatus(task, item)}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        )} */}
       </div>
     </>
   );
 }
 
 type DateCreatedFieldProps = {
-  date: TaskItem["dateCreated"];
+  date: TaskProps["task"]["date_created"];
 };
 
 function DateCreatedField({ date }: DateCreatedFieldProps) {
@@ -342,7 +290,7 @@ function EditSaveBtn({ isEditing, onIsEditing }: EditSaveBtnProps) {
 }
 
 type DeleteTaskBtnProps = {
-  task: TaskItem;
+  task: TaskProps["task"];
 };
 
 function DeleteTaskBtn({ task }: DeleteTaskBtnProps) {

@@ -1,52 +1,32 @@
-import { Tables } from "../../../../types_supabase";
 import { supabase } from "../../../supabaseClient";
+import { ReducerAction, TaskType, TaskInsert } from "../types";
 
-type Task = Tables<"todos">;
-type TaskInsert = Omit<Task, "id" | "user_id">;
-type Action =
-  | {
-      type: "init";
-      tasks: Task[];
-    }
-  | {
-      type: "added";
-      title: string;
-    }
-  | {
-      type: "changed";
-      task: Task;
-    }
-  | {
-      type: "deleted";
-      id: number;
-    };
+async function uploadTask(task: TaskInsert) {
+  const { error } = await supabase.from("todos").insert(task);
+  if (error) console.log(error);
+}
 
-export function tasksReducer(tasks: Task[], action: Action) {
-  async function uploadTask(task: TaskInsert) {
-    const { error } = await supabase.from("todos").insert(task);
-    if (error) console.log(error);
+async function updateTask(task: TaskType) {
+  const { error } = await supabase.from("todos").update(task).eq("id", task.id);
+
+  if (error) {
+    console.error(error);
   }
+}
 
-  async function updateTask(task: Task) {
-    const { error } = await supabase
-      .from("todos")
-      .update(task)
-      .eq("id", task.id);
+async function deleteTask(id: number) {
+  const { error } = await supabase.from("todos").delete().eq("id", id);
+  if (error) console.error(error);
+}
 
-    if (error) {
-      console.error(error);
-    }
-  }
-
-  async function deleteTask(id: number) {
-    const { error } = await supabase.from("todos").delete().eq("id", id);
-    if (error) console.error(error);
-  }
-
+export function tasksReducer(
+  tasks: TaskType[],
+  action: ReducerAction
+): TaskType[] {
   switch (action.type) {
     case "init": {
       if ("tasks" in action) return action.tasks;
-      throw new Error("Unexpected type of action");
+      break;
     }
     case "added": {
       if ("title" in action) {
@@ -59,9 +39,9 @@ export function tasksReducer(tasks: Task[], action: Action) {
         };
 
         uploadTask(newTask);
-        return [newTask, ...tasks];
+        return [newTask as TaskType, ...tasks];
       }
-      throw new Error("Unexpected type of action");
+      break;
     }
     case "changed": {
       if ("task" in action) {
@@ -72,19 +52,17 @@ export function tasksReducer(tasks: Task[], action: Action) {
           } else return t;
         });
       }
-      throw new Error("Unexpected type of action");
+      break;
     }
     case "deleted": {
       if ("id" in action) {
         deleteTask(action.id);
         return tasks.filter((task) => task.id !== action.id);
       }
-      throw new Error("Unexpected type of action");
-    }
-    default: {
-      throw new Error("Unknown action: " + action);
+      break;
     }
   }
+  throw new Error("Unknown type of reducer action:" + action);
 }
 
 export default tasksReducer;

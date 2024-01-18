@@ -1,58 +1,32 @@
-import { useReducer, useEffect } from "react";
-import { TaskItem } from "../types";
-import tasksReducer from "./tasksReducer";
-import { tasksContext, dispatchTasksContext } from "../constants";
 import { supabase } from "../../../supabaseClient";
 
-const exampleTask: TaskItem[] = [
-  {
-    id: 1,
-    title: "Example task",
-    description: "",
-    due_date: new Date().toISOString(),
-    status: "Not started",
-    dateCreated: new Date().toLocaleString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  },
-];
+import { useReducer, useEffect, Reducer } from "react";
+import tasksReducer from "./tasksReducer";
+import { tasksContext, dispatchTasksContext } from "../constants";
+import { ReducerAction, TaskType } from "../types";
 
 export function TasksProvider({ ...children }) {
-  const [tasks, dispatch] = useReducer(tasksReducer, exampleTask);
+  const [tasks, dispatch] = useReducer<Reducer<TaskType[], ReducerAction>>(
+    tasksReducer,
+    []
+  );
 
   useEffect(() => {
     async function loadTasksFromStorage() {
       const { data, error } = await supabase.from("todos").select();
       if (error) {
-        console.log({ error });
-        return false;
+        console.error({ error });
       }
-      if (data) {
+      if (data && data.length === 0) {
+        dispatch({ type: "added", title: "Example task" });
+      }
+      if (data && data.length > 0) {
         dispatch({ type: "init", tasks: data });
-        return data;
       }
-      // const savedTasks: Tasks =
-      //   JSON.parse(localStorage.getItem("tasks") as string) || null;
-      // if (savedTasks && savedTasks.length !== 0) {
-      //   const convertedTasks = savedTasks.map((task) => ({
-      //     ...task,
-      //     dueDate: new Date(task.dueDate),
-      //   }));
-      //   return convertedTasks;
-      //   // dispatch({ type: "init", tasks: convertedTasks });
-      // } else return false;
     }
 
     loadTasksFromStorage();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   return (
     <>

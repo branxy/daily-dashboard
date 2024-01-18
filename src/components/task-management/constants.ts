@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { Dispatch, Tasks } from "./types";
+import { ReducerDispatch, TaskType } from "./types";
 
-export const tasksContext = createContext<Tasks | null>(null);
-export const dispatchTasksContext = createContext<Dispatch>(() => {
+export const tasksContext = createContext<TaskType[] | null>(null);
+export const dispatchTasksContext = createContext<ReducerDispatch>(() => {
   throw new Error("dispatchTasksContext is used without a provider");
 });

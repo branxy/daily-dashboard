@@ -1,48 +1,25 @@
-// type Status = "Not started" | "In progress" | "Done";
+import { Tables } from "../../../types_supabase";
 
-// export type TaskAppType = {
-//   readonly source?: string;
-// };
+export type TaskType = Tables<"todos">;
+export type TaskInsert = Omit<TaskType, "id" | "user_id">;
 
-// export type TaskItem = {
-//   id: number;
-//   title: string;
-//   text: string;
-//   dueDate: Date;
-//   readonly status: "Not started" | "In progress" | "Done";
-//   dateCreated: string;
-// };
+export type ReducerAction =
+  | {
+      type: "init";
+      tasks: TaskType[];
+    }
+  | {
+      type: "added";
+      title: TaskType["title"];
+    }
+  | {
+      type: "changed";
+      task: TaskType;
+    }
+  | {
+      type: "deleted";
+      id: TaskType["id"];
+    };
 
-// export type Tasks = TaskItem[] | [];
-
-// type EmptyAction = { type: string };
-
-// type ActionInit = {
-//   type: "init";
-//   tasks: TaskItem[];
-// };
-
-// type ActionAdded = {
-//   type: "added";
-//   id: number;
-//   title: string;
-// };
-
-// type ActionChanged = {
-//   type: "changed";
-//   task: TaskItem;
-// };
-
-type ActionDeleted = {
-  type: "deleted";
-  id: number;
-};
-
-// export type Action =
-//   | EmptyAction
-//   | ActionInit
-//   | ActionAdded
-//   | ActionChanged
-//   | ActionDeleted;
-
-// export type Dispatch = (obj: Action) => void;
+export type Source = "dashboard" | "original";
+export type ReducerDispatch = (action: ReducerAction) => void;
