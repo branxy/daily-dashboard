@@ -1,14 +1,33 @@
-import { Database } from "../../../../types_supabase";
+import { Tables } from "../../../../types_supabase";
 import { supabase } from "../../../supabaseClient";
-import { Action, Tasks } from "../types";
 
-export function tasksReducer(tasks, action: Action) {
-  async function uploadTask(task) {
+type Task = Tables<"todos">;
+type TaskInsert = Omit<Task, "id" | "user_id">;
+type Action =
+  | {
+      type: "init";
+      tasks: Task[];
+    }
+  | {
+      type: "added";
+      title: string;
+    }
+  | {
+      type: "changed";
+      task: Task;
+    }
+  | {
+      type: "deleted";
+      id: number;
+    };
+
+export function tasksReducer(tasks: Task[], action: Action) {
+  async function uploadTask(task: TaskInsert) {
     const { error } = await supabase.from("todos").insert(task);
     if (error) console.log(error);
   }
 
-  async function updateTask(task) {
+  async function updateTask(task: Task) {
     const { error } = await supabase
       .from("todos")
       .update(task)
@@ -19,14 +38,9 @@ export function tasksReducer(tasks, action: Action) {
     }
   }
 
-  async function deleteTask(id) {
+  async function deleteTask(id: number) {
     const { error } = await supabase.from("todos").delete().eq("id", id);
     if (error) console.error(error);
-  }
-
-  function compareStatus(a: string, b: string): number {
-    const statusOrder = ["Not started", "In progress", "Done"];
-    return statusOrder.indexOf(a) - statusOrder.indexOf(b);
   }
 
   switch (action.type) {
@@ -35,7 +49,7 @@ export function tasksReducer(tasks, action: Action) {
       throw new Error("Unexpected type of action");
     }
     case "added": {
-      if ("id" in action && "title" in action) {
+      if ("title" in action) {
         const newTask = {
           title: action.title,
           description: "",
@@ -67,20 +81,8 @@ export function tasksReducer(tasks, action: Action) {
       }
       throw new Error("Unexpected type of action");
     }
-    case "sorted-reverse": {
-      return [...tasks].reverse();
-    }
-    case "sort-by-date-ascending": {
-      return [...tasks].sort(
-        (a, b) =>
-          new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
-      );
-    }
-    case "sort-by-status": {
-      return [...tasks].sort((a, b) => compareStatus(a.status, b.status));
-    }
     default: {
-      throw new Error("Unknown action: " + action.type);
+      throw new Error("Unknown action: " + action);
     }
   }
 }
